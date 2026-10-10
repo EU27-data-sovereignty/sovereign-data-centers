@@ -17,9 +17,15 @@ What changed and when. Reasoning for the choices behind these changes lives in
 - **How it was made.** Seven research agents (one for the EU vehicles, six for country clusters) collected the
   snapshots with a URL and access date on every claim; the strategies are the author's analysis and say so. A link
   check ran over every cited URL; claims not confirmed from a fetched page are marked **[unverified]**.
-  The link check of 2026-10-10 answered for 387 of 393 cited URLs; the 6 that did not
-  (four Irish government pages that refuse automated requests, two pages gone) are marked. The note carries
-  223 unverified marks over 36,795 words.
+  The link check of 2026-10-10 answered for 462 of 467 cited URLs; the 5 that did not
+  (four Irish government pages that refuse automated requests, one page gone) are marked. The note carries
+  175 unverified marks over 38,429 words.
+- **Reviewed by a second model.** Six Opus 5.5 agents re-read the 1,086 factual claims of the snapshot tables and
+  of section 4 against their cited pages: 987 confirmed, 50 not confirmed, 49 unclear. They also sourced 92 of the
+  222 cells marked unverified from official pages. Every verdict was applied (the text changed for 31 claims, only
+  the citation for 19, and 92 cells were filled), and the six reports are committed verbatim in
+  `docs/plans/national-ai-strategies-factcheck-2026-10-10.md`. The session log is
+  `docs/plans/national-ai-log.md`.
 - **Checked.** `./test.sh --only model` passed on 2026-10-10 (346 tests), including the new step "The national-AI
   note keeps its contract" and `tests/test_national_ai.py`.
 - **Not rendered.** Nothing in the bundle, the web app, the PDFs or `/ask` changes. The sourced follow-on (reviewed

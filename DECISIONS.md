@@ -2684,12 +2684,15 @@ in one document, before any of it is admitted as printed fact.
 figure (#73); quoting the note as a finding of the model (it carries the same caveat wording as #44's note); and
 adding the note to any generated output without the sourced follow-on.
 
-**Verified:** 2026-10-10. `./run.sh national-ai links` wrote `docs/national-ai-strategies-links.csv`: 393 URLs,
-387 answered, 6 did not (four `gov.ie` pages refusing automated requests, two pages gone), each on a
-line marked **[unverified]**. `./run.sh national-ai check` printed `27 states, 393 URLs (387 answered at the
-last link check), 223 unverified marks, 36,795 words, 0 problems`. `tests/test_national_ai.py` and
-`tests/test_docs.py` pass; `./test.sh --only model` recorded in `CHANGELOG.md`. The second-model review in
-`docs/plans/national-ai-strategies-factcheck-<date>.md` is the owner's call and has not run.
+**Verified:** 2026-10-10. `./run.sh national-ai links` wrote `docs/national-ai-strategies-links.csv`: 467 URLs,
+462 answered, 5 did not (four `gov.ie` pages refusing automated requests, one page gone), each on a
+line marked **[unverified]**. `./run.sh national-ai check` printed `27 states, 467 URLs (462 answered at the
+last link check), 175 unverified marks, 38,429 words, 0 problems`. `tests/test_national_ai.py` and
+`tests/test_docs.py` pass; `./test.sh --only model` recorded in `CHANGELOG.md`. The second-model review ran the
+same day: six Opus 5.5 agents checked 1,086 snapshot claims against their cited pages (987 confirmed, 50 not,
+49 unclear) and sourced 92 of 222 unverified cells; every verdict was applied and the reports are committed in
+`docs/plans/national-ai-strategies-factcheck-2026-10-10.md`. Before the review the note had 223 unverified
+marks over 393 URLs.
 
 *Would change if:* the sourced follow-on lands and the snapshots become reviewed indicators, at which point the
 snapshot tables here become a pointer to the generated overview and only the strategies stay authored; or a reader

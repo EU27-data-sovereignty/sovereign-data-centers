@@ -5,6 +5,67 @@ shape of [`stichting-log.md`](stichting-log.md). Each entry records who or what 
 what was decided and why, what changed, how it was checked, and what is still open. The decision of record is
 `DECISIONS.md` #101; this log is the working narrative behind it, not a second copy.
 
+## 2026-10-10, later — the second-model review, applied
+
+**Produced by.** The same Claude Fable 5.1 session. Six Claude Opus 5.5 (`claude-opus-5-5`) subagents did the
+checking, one per cluster of entries and one for sections 2, 4 and 6; the writing session applied their verdicts.
+Starting commit `5537135`; the branch had been pushed to `origin/national-ai` just before.
+
+**Asked by the owner.** "push", then "actually just do it all", then "ensure proper security and privacy checks".
+
+### Decisions
+
+1. **Push the branch, not `main`.** The branch went to `origin/national-ai` over SSH after the gate in strict CI
+   mode, gitleaks and a scan of every added line for email addresses, phone numbers, IP addresses, credentials and
+   local paths all came back clean. The remote was switched from HTTPS to SSH because no HTTPS credential was
+   stored and every sibling repo uses SSH. `main` is untouched: a push there is a production deploy (#81).
+2. **Run the second-model review now, with Opus 5.5.** The rule of #87 (a fact is checked by the model that did
+   not write it) applied to an authored note: Fable 5.1 wrote it, so Opus 5.5 checked it. Six agents in parallel,
+   each told to fetch, to quote at most 25 words, never to supply a fact from memory, and to edit nothing.
+3. **Apply every verdict in the note, and commit the reports verbatim.** A NOT CONFIRMED claim was corrected
+   where the reviewer found the fact on an official page, reworded to what the page says where it was overstated,
+   or removed and marked where it had no source. A FOUND cell was filled with the fact, the URL and the access
+   date. Each edit was asserted to match exactly one place in the note. The reports are
+   [`national-ai-strategies-factcheck-2026-10-10.md`](national-ai-strategies-factcheck-2026-10-10.md).
+4. **Absence stays absence.** Where a reviewer could only show that no contract, bid or page exists, the cell
+   says so and keeps its mark.
+
+### What the review found
+
+| Part | Claims | Confirmed | Not confirmed | Unclear | Unverified cells | Found |
+|---|---|---|---|---|---|---|
+| All six parts | 1,086 | 987 | 50 | 49 | 222 | 92 |
+
+Of the 50 not confirmed, 19 were true on an uncited official page and 31 were wrong, overstated or unsourced. The
+ones that changed a recommendation's premise: MeluXina-AI has 1,008 GPUs, not over 2,100; Gefion is funded by a
+foundation and the state's investment fund, not privately; Silo AI has been part of AMD since August 2024 and
+Poro 2 is under a Llama licence; the Dutch cabinet wrote in March 2026 that the budget has no room for the
+Gigafactory commitment; the Lithuanian factory's EU share is EUR 65 million; the Romanian models were trained on a
+slice of the corpus, not all of it; the AI Continent Action Plan's EUR 10 billion is a total, not a commitment to
+factories; OpenEuroLLM's Leonardo hours were for a dataset project. No route group changed.
+
+### Verification
+
+```
+./run.sh national-ai links  → 467 URLs, 462 answered, 5 did not
+./run.sh national-ai check  → 27 states, 467 URLs (462 answered), 175 unverified marks, 38,429 words, 0 problems
+```
+
+| Count | Before the review | After |
+|---|---|---|
+| Cited URLs | 393 | 467 |
+| Did not answer | 6 | 5 (four `gov.ie` pages, one page gone) |
+| Unverified marks | 223 | 175 |
+| Words | 36,795 | 38,429 |
+
+### Still open
+
+- 130 cells the reviewers could not source, kept marked.
+- The sourced follow-on (reviewed indicators and a `/national-ai` page) is designed in `ROADMAP.md` and not
+  started: it adds about 135 printed facts that each need a fetched quote, an independent review and the
+  cross-model check before a deploy.
+- Merging `national-ai` into `main` is a production deploy and is the owner's call.
+
 ## 2026-10-10 — the note, its checker and the link register
 
 **Produced by.** Claude Fable 5.1 (`claude-fable-5-1`) in Claude Code, session
